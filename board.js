@@ -7,3 +7,10 @@ var Board = function(){
   this.rows = 6;
 };
 
+var RedPiece = function(){
+  this.color = red
+}
+
+var BluePiece = function(){
+  this.color = blue
+}
