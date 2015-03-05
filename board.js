@@ -5,12 +5,11 @@
 var Board = function(){
   this.columns = 7;
   this.rows = 6;
+  this.playerTurn = 0;
 };
 
-var RedPiece = function(){
-  this.color = red
+var Piece = function(color){
+  this.color = color;
 }
 
-var BluePiece = function(){
-  this.color = blue
-}
+
