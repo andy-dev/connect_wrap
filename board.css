@@ -1,0 +1,5 @@
+.board tr td {
+  border: 1px solid black;
+  height: 3em;
+  width: 3em;
+}
