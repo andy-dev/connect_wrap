@@ -11,7 +11,7 @@
   var rows = $("section");
   var turnCounter = 0;
   var colors;
-  var playerTurn;
+  var playerColor;
 
   // Choose whos turn it is
   var decideTurn = function() {
@@ -19,9 +19,9 @@
 
 
     function moveCounter(){
-      playerTurn = colors[turnCounter];
-      playerTurn === "red" ? turnCounter++ : turnCounter--;
-      console.log(turnCounter);
+      playerColor = colors[turnCounter];
+      playerColor === "red" ? turnCounter++ : turnCounter--;
+      console.log(playerColor);
     };
 
     function bindCounterEvent() {
@@ -40,11 +40,10 @@
 
       for (var i=5; i >= 0; i--){
       var column = $(this).children();
-        // red is going to be color var later
-        // turn works but value doesn't change
         var cell = $(column[i]);
-        if (!cell.hasClass('red')) {
-          cell.addClass('red');
+
+        if (cell.hasClass('')) {
+          cell.addClass(playerColor);
           return;
         }
       }
@@ -52,8 +51,6 @@
 
     function cellColorEventBind() {
       rows.on("click", decidePiecePlaced);
-      rows.on("click", createBoardString); // Temp Bind for testing
-      // rows.on("click", decideTurn); // Temp Bind for testing
     };
 
     cellColorEventBind();
