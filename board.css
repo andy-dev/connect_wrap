@@ -1,3 +1,14 @@
+header {
+  font-size: 4cm;
+}
+
+body {
+  margin: 50px 0px;
+  padding:0px;
+  text-align: center;
+  background: yellow;
+}
+
 .board tr td {
   border: 1px solid black;
   height: 3em;
@@ -9,6 +20,7 @@ div {
   height: 3em;
   width: 3em;
   margin-bottom: .5em;
+  border-radius: 25px;
 }
 
 section {
