@@ -7,58 +7,58 @@
 //   this.rows = 6;
 // };
 
-var color = ["black", "red"];
+// var color = [ "red","black"];
 
-var turn = color[i];
-var i = 0;
-
-
-
-$(document).on("click", function(){
-
-  if (turn === "red") {
-    i++;
-  }
-  else {
-    i--;
-  };
-})
+// var turn = color[i];
+// var i = 0;
 
 
-function boardS() {
-  var rows = $("section");
-  var boardString = "";
 
-  rows.each(function(index, row){
-    for (var i=0; i < row.children.length; i++){
-      if (row.children[i].className == "red"){
-        boardString += "r";
-      }
-      else if (row.children[i].className == "black") {
-        boardString += "b";
-      }
-      else {
-        boardString += "x";
-      }
-    }
-  })
-  return boardString;
-}
+// $(document).on("click", function(){
 
-var rows = $("section");
+//   if (turn === "red") {
+//     i++;
+//   }
+//   else {
+//     i--;
+//   };
+// })
 
-rows.on("click", function(){
-  var column = $(this).children();
-  for (var i=5; i >= 0; i--){
-    // red is going to be color var later
-    var cell = $(column[i]);
-    if (!cell.hasClass(turn)){
-      cell.addClass(turn);
-      return;
-    }
 
-  }
-})
+// function boardS() {
+//   var rows = $("section");
+//   var boardString = "";
+
+//   rows.each(function(index, row){
+//     for (var i=0; i < row.children.length; i++){
+//       if (row.children[i].className == "red"){
+//         boardString += "r";
+//       }
+//       else if (row.children[i].className == "black") {
+//         boardString += "b";
+//       }
+//       else {
+//         boardString += "x";
+//       }
+//     }
+//   })
+//   return boardString;
+// }
+
+// var rows = $("section");
+
+// rows.on("click", function(){
+//   var column = $(this).children();
+//   for (var i=5; i >= 0; i--){
+//     // red is going to be color var later
+//     var cell = $(column[i]);
+//     if (!cell.hasClass('red')){
+//       cell.addClass('red');
+//       return;
+//     }
+
+//   }
+// })
 
 // Game Module
 (function() {
@@ -77,7 +77,7 @@ rows.on("click", function(){
     turn = color[i];
 
     function moveCounter(){
-      if (turn === "red") ? i++ : i--;
+    turn === "red" ? i++ : i--;
     };
 
     function bindCounterEvent() {
@@ -104,28 +104,31 @@ rows.on("click", function(){
         }
       }
     });
-    return boardString;
+    // return boardString;
+    console.log(boardString); // Testing
   };
 
   // Choose What Color is placed
 
   var cellColorDeligation = function() {
 
-    var column = $(this).children();
 
     function decidePiecePlaced(){
+      var column = $(this).children();
+
       for (var i=5; i >= 0; i--){
         // red is going to be color var later
         var cell = $(column[i]);
-        if (!cell.hasClass(turn)) {
-          cell.addClass(turn);
+        if (!cell.hasClass('red')) {
+          cell.addClass('red');
           return;
         }
       }
     };
 
     function cellColorEventBind() {
-      rows.on("click", decidePiecePlaced)
+      rows.on("click", decidePiecePlaced);
+      rows.on("click", createBoardString); // Temp Bind for testing
     };
 
     cellColorEventBind();
@@ -134,13 +137,17 @@ rows.on("click", function(){
   var init = function() {
     cellColorDeligation();
     decideTurn();
-    createBoardString();
+
   };
 
   window.gameModule = function() {
     return {
+      // init:,
       init: init,
     }
   };
 
 })()
+
+var game = gameModule()
+game.init()
