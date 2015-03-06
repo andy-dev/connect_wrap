@@ -7,6 +7,22 @@ var Board = function(){
   this.rows = 6;
 };
 
+var color = ["black", "red"];
+
+var turn = color[i];
+var i = 0;
+
+$(document).on("click", function(){
+
+  if (turn === "red") {
+    i++;
+  }
+  else {
+    i--;
+  };
+})
+
+
 function boardS() {
   var rows = $("section");
   var boardString = "";
@@ -33,8 +49,10 @@ rows.on("click", function(){
   var column = $(this).children();
   for (var i=5; i >= 0; i--){
     // red is going to be color var later
-    if ((!$(column[i])).hasClass("red")){
-      ($(column[i])).addClass("red");
+    var cell = $(column[i]);
+    if (!cell.hasClass(turn)){
+      cell.addClass(turn);
+      return;
     }
 
   }
