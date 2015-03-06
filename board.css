@@ -3,3 +3,22 @@
   height: 3em;
   width: 3em;
 }
+
+div {
+  border:1px solid black;
+  height: 3em;
+  width: 3em;
+  margin-bottom: .5em;
+}
+
+section {
+  display: inline-block;
+}
+
+.red {
+  background-color: red;
+}
+
+.black {
+  background-color: black;
+}
