@@ -13,8 +13,8 @@
   var turnCounter = 0;
   var colors;
   var playerColor;
-  var boardString;
   var updatedBoard;
+  var boardString = "";
 
   // Choose whos turn it is
   var decideTurn = function() {
@@ -55,6 +55,7 @@
 
     function cellColorEventBind() {
       rows.on("click", decidePiecePlaced);
+      rows.on("click", createBoardString);
     };
 
     cellColorEventBind();
@@ -82,9 +83,12 @@
 
   // Create String that will be used to pick winner
 
+
   var createBoardString = function() {
 
+
     function updateString() {
+
 
       boardString = ""
 
@@ -125,17 +129,58 @@
     bindUpdateClick()
   };
 
-  // var syncWithPlayer = function() {
 
+  var checkBoardString = function(){
 
+    var checkBlack = function(){
+      var horizontal = /b.{5}b.{5}b.{5}b/;
+      var vertical = /b{4}/;
+      var horizontalCheck = horizontal.test(boardString);
+      var verticalCheck = vertical.test(boardString);
+      if (horizontalCheck == true || verticalCheck == true){
+        alert ("Black player won!")
+      };
+    };
 
-  //   function bindSyncEvent() {
-  //   $('button').on('click', renderFireBoard);
+    var checkRed = function(){
+      var horizontal = /r.{5}r.{5}r.{5}r/;
+      var vertical = /r{4}/;
+      var horizontalCheck = horizontal.test(boardString);
+      var verticalCheck = vertical.test(boardString);
+      if (horizontalCheck == true || verticalCheck == true){
+        alert ("Red player won!")
+      };
+    };
 
-  //   }
+    var checkDiagonalRed = function(){
+      var pattern = /r.{4}r.{4}r.{4}r/;
+      var pattern2 = /r.{6}r.{6}r.{6}r/;
+      var check = pattern.test(boardString);
+      var check2 = pattern2.test(boardString);
+      if (check == true || check2 == true){
+        alert ("Red player won!")
+      };
+    }
 
-  //   bindSyncEvent()
-  // };
+    var checkDiagonalBlack = function(){
+      var pattern = /b.{4}b.{4}b.{4}b/;
+      var pattern2 = /b.{6}b.{6}b.{6}b/;
+      var check = pattern.test(boardString);
+      var check2 = pattern2.test(boardString);
+      if (check == true || check2 == true){
+        alert ("Black player won!")
+      };
+    }
+
+    function bindCheckEvents() {
+      $(document).on("click", checkBlack);
+      $(document).on("click", checkRed);
+      $(document).on("click", checkDiagonalRed);
+      $(document).on("click", checkDiagonalBlack);
+    };
+
+    bindCheckEvents();
+  };
 
 
   var init = function() {
@@ -143,6 +188,7 @@
     decideTurn();
     createBoardString();
     // syncWithPlayer();
+
   };
 
   window.gameModule = function() {
@@ -155,3 +201,4 @@
 
 var game = gameModule()
 game.init()
+
