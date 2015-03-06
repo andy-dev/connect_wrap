@@ -9,14 +9,14 @@
   "use strict";
 
   var rows = $("section");
-  var color = ["black", "red"];
-  var i = 0;
+  var color = ["red","black"];
+  var i;
   var turn;
 
-
   // Choose whos turn it is
-  var decideTurn = function() {
 
+  var decideTurn = function() {
+    i = 0
     turn = color[i];
 
     function moveCounter(){
@@ -28,6 +28,35 @@
     };
 
     bindCounterEvent();
+    return turn
+  };
+
+  // Choose What Color is placed
+
+  var cellColorDeligation = function() {
+
+    turn = decideTurn()
+
+    function decidePiecePlaced(){
+      var column = $(this).children();
+
+      for (var i=5; i >= 0; i--){
+        // red is going to be color var later
+        var cell = $(column[i]);
+        if (!cell.hasClass(turn)) {
+          cell.addClass(turn);
+          return;
+        }
+      }
+    };
+
+    function cellColorEventBind() {
+      rows.on("click", decidePiecePlaced);
+      rows.on("click", createBoardString); // Temp Bind for testing
+      // rows.on("click", decideTurn); // Temp Bind for testing
+    };
+
+    cellColorEventBind();
   };
 
   // Create String that will be used to pick winner
@@ -51,35 +80,10 @@
     console.log(boardString); // Testing
   };
 
-  // Choose What Color is placed
-
-  var cellColorDeligation = function() {
-
-
-    function decidePiecePlaced(){
-      var column = $(this).children();
-
-      for (var i=5; i >= 0; i--){
-        // red is going to be color var later
-        var cell = $(column[i]);
-        if (!cell.hasClass('red')) {
-          cell.addClass('red');
-          return;
-        }
-      }
-    };
-
-    function cellColorEventBind() {
-      rows.on("click", decidePiecePlaced);
-      rows.on("click", createBoardString); // Temp Bind for testing
-    };
-
-    cellColorEventBind();
-  };
 
   var init = function() {
     cellColorDeligation();
-    decideTurn();
+    // decideTurn();
 
   };
 
