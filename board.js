@@ -9,18 +9,19 @@
   "use strict";
 
   var rows = $("section");
-  var color = ["red","black"];
-  var i;
-  var turn;
+  var turnCounter = 0;
+  var colors;
+  var playerTurn;
 
   // Choose whos turn it is
-
   var decideTurn = function() {
-    i = 0
-    turn = color[i];
+    colors = ["red","black"];
+
 
     function moveCounter(){
-    turn === "red" ? i++ : i--;
+      playerTurn = colors[turnCounter];
+      playerTurn === "red" ? turnCounter++ : turnCounter--;
+      console.log(turnCounter);
     };
 
     function bindCounterEvent() {
@@ -28,23 +29,22 @@
     };
 
     bindCounterEvent();
-    return turn
+
   };
 
   // Choose What Color is placed
 
   var cellColorDeligation = function() {
 
-    turn = decideTurn()
-
     function decidePiecePlaced(){
-      var column = $(this).children();
 
       for (var i=5; i >= 0; i--){
+      var column = $(this).children();
         // red is going to be color var later
+        // turn works but value doesn't change
         var cell = $(column[i]);
-        if (!cell.hasClass(turn)) {
-          cell.addClass(turn);
+        if (!cell.hasClass('red')) {
+          cell.addClass('red');
           return;
         }
       }
@@ -83,8 +83,7 @@
 
   var init = function() {
     cellColorDeligation();
-    // decideTurn();
-
+    decideTurn();
   };
 
   window.gameModule = function() {
