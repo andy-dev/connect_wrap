@@ -187,6 +187,7 @@
     cellColorDeligation();
     decideTurn();
     createBoardString();
+    checkBoardString();
     // syncWithPlayer();
 
   };
