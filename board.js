@@ -11,10 +11,10 @@
   var connectMore = new Firebase("https://luminous-inferno-9321.firebaseio.com");
   var rows = $("section");
   var turnCounter = 0;
+  var boardString = "";
   var colors;
   var playerColor;
   var updatedBoard;
-  var boardString = "";
 
   // Choose whos turn it is
   var decideTurn = function() {
@@ -30,6 +30,7 @@
       $(document).on("click", moveCounter);
     };
 
+    moveCounter()
     bindCounterEvent();
 
   };
@@ -37,6 +38,10 @@
   // Choose What Color is placed
 
   var cellColorDeligation = function() {
+
+    // function resetBoard() {
+    //   updatedBoard = '';
+    // };
 
     function decidePiecePlaced(){
 
@@ -56,30 +61,40 @@
     function cellColorEventBind() {
       rows.on("click", decidePiecePlaced);
       rows.on("click", createBoardString);
+      // $('button').on('click', resetBoard);
+
     };
 
     cellColorEventBind();
   };
 
+// RERENDER PRIORITY ONE WIP
   var renderFireBoard = function() {
 
     if (updatedBoard == null) return;
 
-    updatedBoard = updatedBoard.split('')
-    rows.each(function(index, row){
-        for (var i=0; i < 47; i++){
-          if (updatedBoard[i] == "r"){
-            console.log($(row.children[i]).addClass("red"));
-            // console.log(row.children)
-          } else if (updatedBoard[i] == "b") {
-            $(row.children[i]).addClass("black");
-            console.log(row.children)
+    if (typeof(updatedBoard) === 'string' ) {
+      updatedBoard = updatedBoard.split('');
+    }
+
+      for (var col = 0; col < 42; col++) {
+        if (rows.children()[col].id == col) {
+          if (updatedBoard[col] === "r") {
+            $(rows.children()[col]).addClass('red');
+              console.log(rows.children()[col])
+          } else if (updatedBoard[col] === "b") {
+            $(rows.children()[col]).addClass('black');
           }
+        // $(rows.children()[col]).addClass('red');
+      // } else if (updatedBoard[col] === "b") {
+        // $(rows.children()[col]).addClass('black');
+        // break;
         }
-      })
+      }
+      // }
 
   };
-
+// --------------------------------------------------
 
   // Create String that will be used to pick winner
 
@@ -108,11 +123,11 @@
     // boardString; // Testing
     function updateFirebase() {
       $("#boardstring").text(boardString);
-      // connectMore.set({ board: boardString })
+        // connectMore.set({ board: boardString })
       connectMore.update({ board: boardString });
       connectMore.on("value", function(data) {
       updatedBoard = data.val().board;
-      renderFireBoard;
+      renderFireBoard();
       // console.log(boardString);// ? data.val().boardString : "";
       // console.log("My Board String " + boardString);
       });
@@ -120,9 +135,9 @@
 
 
     function bindUpdateClick() {
-      $(document).on('click', updateString)
+      $(document).on('click', updateString);
       $(document).on('click', updateFirebase);
-      $('button').on('click', renderFireBoard);
+      // $('#boardstring').on('click', renderFireBoard);
     };
 
 
